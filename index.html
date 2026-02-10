@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD SYNNEX | Dell Data Center Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;900&display=swap');
+        
+        :root {
+            --tds-teal-dark: #005b5e;
+            --tds-teal-bright: #00bfc8;
+            --tds-white: #ffffff;
+            --tds-bg-light: #f4f7f7;
+        }
+
+        body { 
+            font-family: 'Public Sans', sans-serif; 
+            background-color: var(--tds-bg-light);
+            scroll-behavior: smooth;
+        }
+
+        .bg-tds-teal-dark { background-color: var(--tds-teal-dark); }
+        .text-tds-teal-dark { color: var(--tds-teal-dark); }
+        .bg-tds-teal-bright { background-color: var(--tds-teal-bright); }
+        .text-tds-teal-bright { color: var(--tds-teal-bright); }
+        
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 30px -5px rgba(0, 91, 94, 0.15);
+        }
+
+        .active-filter {
+            background-color: var(--tds-teal-bright) !important;
+            color: var(--tds-teal-dark) !important;
+            font-weight: 800;
+        }
+
+        .btn-primary {
+            background-color: var(--tds-teal-bright);
+            color: var(--tds-teal-dark);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            filter: brightness(1.1);
+        }
+
+        .spec-label {
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #94a3b8;
+            letter-spacing: 0.05em;
+        }
+
+        .spec-value {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--tds-teal-dark);
+        }
+
+        .btn-spec-link {
+            border: 1px solid var(--tds-teal-bright);
+            color: var(--tds-teal-dark);
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.2s ease;
+        }
+
+        .btn-spec-link:hover {
+            background-color: var(--tds-teal-bright);
+            color: var(--tds-teal-dark);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="text-slate-900">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="bg-tds-teal-dark text-white py-1.5 px-4 text-center text-[10px] font-bold uppercase tracking-[0.2em]">
+            Distribuição Estratégica: Dell Technologies Enterprise
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 border-2 border-tds-teal-bright rounded-full flex items-center justify-center">
+                        <div class="w-6 h-6 border-t-2 border-r-2 border-tds-teal-bright rounded-full"></div>
+                    </div>
+                    <div class="flex flex-col leading-none">
+                        <span class="text-2xl font-black tracking-tighter text-tds-teal-dark">TD <span class="font-normal">SYNNEX</span></span>
+                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-1">Enterprise Solutions</span>
+                    </div>
+                </div>
+
+                <nav class="hidden md:flex items-center space-x-10 text-[11px] font-black uppercase tracking-widest text-tds-teal-dark">
+                    <button onclick="scrollToGrid('Servidores')" class="hover:text-tds-teal-bright transition-colors">Servidores</button>
+                    <button onclick="scrollToGrid('Storages')" class="hover:text-tds-teal-bright transition-colors">Storage</button>
+                    <button onclick="scrollToGrid('Switches')" class="hover:text-tds-teal-bright transition-colors">Networking</button>
+                    <a href="#" class="bg-tds-teal-dark text-white px-6 py-3 rounded text-[10px] hover:bg-black transition-all">Portal do Parceiro</a>
+                </nav>
+
+                <div class="flex items-center gap-5">
+                    <button class="text-tds-teal-dark hover:text-tds-teal-bright"><i data-lucide="search" class="w-5 h-5"></i></button>
+                    <button class="md:hidden text-tds-teal-dark" onclick="toggleMobileMenu()"><i data-lucide="menu" class="w-5 h-5"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-tds-teal-dark overflow-hidden py-24">
+        <div class="absolute inset-0 opacity-10">
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=1200" alt="Data Center" class="w-full h-full object-cover">
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white text-center md:text-left">
+            <div class="max-w-3xl">
+                <div class="inline-block px-3 py-1 border border-tds-teal-bright text-tds-teal-bright text-[10px] font-black uppercase tracking-widest mb-6">
+                    Technical Sales & Architecture
+                </div>
+                <h1 class="text-5xl lg:text-7xl font-black mb-8 leading-[1.05]">
+                    Engenharia de <span class="text-tds-teal-bright">Precisão</span>.
+                </h1>
+                <p class="text-lg text-blue-50/80 mb-10 leading-relaxed font-light">
+                    Como Arquiteto na TD SYNNEX, disponibilizo o acesso direto aos Spec Sheets oficiais da Dell. 
+                    Valide o seu projeto com dados reais de performance do catálogo atual.
+                </p>
+                <div class="flex flex-wrap gap-5 justify-center md:justify-start">
+                    <button onclick="scrollToGrid('Todos')" class="btn-primary px-8 py-4 font-black rounded shadow-lg flex items-center gap-3 uppercase text-xs tracking-widest">
+                        Catálogo Completo <i data-lucide="file-text"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filtros -->
+    <section id="solutions-section" class="py-12">
+        <div class="bg-white border-b sticky top-20 z-40 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 overflow-x-auto scrollbar-hide py-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex gap-3" id="filter-container">
+                    <button onclick="filterItems('Todos')" class="filter-btn active-filter px-8 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all">Catálogo Geral</button>
+                    <button onclick="filterItems('Servidores')" class="filter-btn bg-gray-50 text-tds-teal-dark px-8 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-gray-100 transition-all">Servidores</button>
+                    <button onclick="filterItems('Storages')" class="filter-btn bg-gray-50 text-tds-teal-dark px-8 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-gray-100 transition-all">Storage</button>
+                    <button onclick="filterItems('Switches')" class="filter-btn bg-gray-50 text-tds-teal-dark px-8 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-gray-100 transition-all">Networking</button>
+                </div>
+                <div id="results-count" class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    Arquitetura de Data Center Dell
+                </div>
+            </div>
+        </div>
+
+        <!-- Descrição Dinâmica -->
+        <div id="category-description" class="max-w-7xl mx-auto px-4 mt-12 fade-in">
+            <div class="bg-white p-8 md:p-12 rounded-3xl border border-gray-100 shadow-sm flex flex-col md:flex-row gap-12">
+                <div class="md:w-2/3">
+                    <h2 id="cat-title" class="text-3xl font-black text-tds-teal-dark mb-4 uppercase tracking-tight">Infraestrutura Enterprise</h2>
+                    <p id="cat-text" class="text-gray-500 leading-relaxed text-sm mb-6">
+                        Explore as soluções Dell Technologies que compõem o núcleo do data center moderno.
+                    </p>
+                    <div id="cat-list-container" class="grid grid-cols-2 md:grid-cols-3 gap-4 border-t border-gray-50 pt-6">
+                    </div>
+                </div>
+                <div class="md:w-1/3 bg-tds-bg-light rounded-2xl p-6 flex flex-col justify-center border border-gray-100 text-center md:text-left">
+                    <span class="text-[10px] font-black text-tds-teal-bright uppercase mb-2">Suporte ao Parceiro</span>
+                    <p class="text-xs font-bold text-tds-teal-dark leading-relaxed italic">
+                        "O Spec Sheet é o seu guia definitivo para dimensionar workloads com sucesso. Utilize os links abaixo para aceder aos PDFs oficiais."
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grade com Spec Sheets e Links -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            </div>
+        </main>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-tds-teal-dark text-white pt-24 pb-12">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
+            <div class="col-span-1 md:col-span-1 text-center md:text-left">
+                <div class="text-3xl font-black leading-none mb-8">TD <span class="font-normal">SYNNEX</span></div>
+                <p class="text-blue-100/60 text-[10px] leading-relaxed font-bold uppercase tracking-wider">
+                    Authorized Enterprise Distributor Dell Technologies.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-tds-teal-bright font-black text-[10px] uppercase tracking-[0.2em] mb-8">Especialidades DC</h4>
+                <ul class="space-y-4 text-xs font-bold text-blue-100/80 uppercase tracking-wider">
+                    <li><button onclick="filterItems('Servidores')" class="hover:text-tds-teal-bright text-left">PowerEdge Rack</button></li>
+                    <li><button onclick="filterItems('Storages')" class="hover:text-tds-teal-bright text-left">PowerStore Storage</button></li>
+                    <li><button onclick="filterItems('Switches')" class="hover:text-tds-teal-bright text-left">PowerSwitch Networking</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-tds-teal-bright font-black text-[10px] uppercase tracking-[0.2em] mb-8">Arquitetura</h4>
+                <ul class="space-y-4 text-xs font-bold text-blue-100/80 uppercase tracking-wider">
+                    <li><a href="#" class="hover:text-tds-teal-bright">Dimensionamento</a></li>
+                    <li><a href="#" class="hover:text-tds-teal-bright">Análise de Projeto</a></li>
+                    <li><a href="#" class="hover:text-tds-teal-bright">Portal Stellr</a></li>
+                </ul>
+            </div>
+            <div class="bg-black/20 p-8 rounded-2xl border border-white/10">
+                <h4 class="text-tds-teal-bright font-black text-[10px] uppercase tracking-widest mb-4">Novo Projeto</h4>
+                <button class="w-full bg-tds-teal-bright text-tds-teal-dark font-black py-3 rounded text-[10px] uppercase tracking-widest hover:bg-white transition-all">Falar com Especialista</button>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 pt-12 border-t border-white/10 text-[9px] font-black text-white/30 uppercase tracking-[0.3em] flex flex-col md:flex-row justify-between items-center gap-6 text-center">
+            <p>© 2025 TD SYNNEX - DATA CENTER VERTICAL</p>
+            <div class="flex gap-8">
+                <a href="#" class="hover:text-white transition-colors">Compliance</a>
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const categoryData = {
+            'Todos': {
+                title: "Infraestrutura Integrada",
+                text: "Portfólio unificado de soluções Enterprise. Projetadas para agilidade e escala total.",
+                products: ["PowerEdge Servers", "PowerStore Storage", "PowerSwitch Networking", "PowerVault ME5", "PowerScale NAS", "PowerProtect DD"]
+            },
+            'Servidores': {
+                title: "Servidores PowerEdge",
+                text: "Computação de alta performance otimizada para workloads complexos e aceleração de Inteligência Artificial.",
+                products: ["R660 / R760", "R7625 (AMD)", "XE9680 (AI)", "T560 Tower", "MX7000 Modular", "C-Series Cloud"]
+            },
+            'Storages': {
+                title: "Storage & Data Protection",
+                text: "Armazenamento centrado em dados. performance NVMe para aplicações críticas e proteção resiliente para backup.",
+                products: ["PowerStore T-Series", "PowerVault ME5", "PowerScale (NAS)", "Unity XT", "PowerProtect DD", "ECS Object Storage"]
+            },
+            'Switches': {
+                title: "Dell Networking",
+                text: "Redes abertas projetadas para automação e throughput massivo no núcleo do Data Center.",
+                products: ["S-Series (Leaf)", "Z-Series (Spine)", "N-Series (Campus)", "Connectrix SAN", "SmartFabric OS10", "SONiC Integration"]
+            }
+        };
+
+        const products = [
+            // SERVIDORES
+            { 
+                id: 1, 
+                name: "PowerEdge R760", 
+                category: "Servidores", 
+                stock: "Rack 2U / Xeon Gen 4", 
+                img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/servers/technical-support/poweredge-r760-spec-sheet.pdf",
+                spec_sheet: {
+                    "Processador": "Até 2x Intel Xeon Scalable Gen 4",
+                    "Memória": "Até 8TB DDR5 (32 slots RDIMM)",
+                    "Storage": "Até 16x 2.5\" ou 12x 3.5\"",
+                    "Gestão": "iDRAC9 Enterprise"
+                }
+            },
+            { 
+                id: 2, 
+                name: "PowerEdge R660", 
+                category: "Servidores", 
+                stock: "Rack 1U / Densa Performance", 
+                img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/servers/technical-support/poweredge-r660-spec-sheet.pdf",
+                spec_sheet: {
+                    "Processador": "Até 2x Intel Xeon Scalable Gen 4",
+                    "Memória": "Até 8TB DDR5",
+                    "Form Factor": "1U Rack",
+                    "Ideal para": "Virtualização Densa, HPC"
+                }
+            },
+            { 
+                id: 3, 
+                name: "PowerEdge XE9680", 
+                category: "Servidores", 
+                stock: "IA & GPU Specialized", 
+                img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/servers/technical-support/poweredge-xe9680-spec-sheet.pdf",
+                spec_sheet: {
+                    "GPU": "8x NVIDIA H100 ou A100 SXM",
+                    "Processador": "2x Intel Xeon Scalable Gen 4",
+                    "RAM": "Até 4TB DDR5",
+                    "Uso": "Treinamento de LLM e IA Generativa"
+                }
+            },
+            { 
+                id: 4, 
+                name: "PowerEdge T560", 
+                category: "Servidores", 
+                stock: "Tower Enterprise", 
+                img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/servers/technical-support/poweredge-t560-spec-sheet.pdf",
+                spec_sheet: {
+                    "Processador": "Até 2x Intel Xeon Scalable Gen 4",
+                    "Memória": "Até 1TB DDR5",
+                    "Drives": "Até 24x 2.5\" ou 12x 3.5\"",
+                    "Acústica": "Otimizada para escritório"
+                }
+            },
+            { 
+                id: 5, 
+                name: "PowerEdge R7625", 
+                category: "Servidores", 
+                stock: "AMD EPYC Gen 4 / 2U", 
+                img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/servers/technical-support/poweredge-r7625-spec-sheet.pdf",
+                spec_sheet: {
+                    "Processador": "2x AMD EPYC de 4ª Geração",
+                    "Núcleos": "Até 256 núcleos físicos",
+                    "RAM": "Até 6TB DDR5",
+                    "Slots": "Até 8x PCIe Gen 5"
+                }
+            },
+            { 
+                id: 6, 
+                name: "PowerEdge MX7000", 
+                category: "Servidores", 
+                stock: "Chassis Modular 7U", 
+                img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/servers/technical-support/poweredge-mx7000-spec-sheet.pdf",
+                spec_sheet: {
+                    "Sleds": "Até 8 sleds de computação",
+                    "Fabric": "Rede redundante integrada",
+                    "Gerenciamento": "OpenManage Enterprise-Modular",
+                    "Design": "Kinetic Infrastructure"
+                }
+            },
+            
+            // STORAGES
+            { 
+                id: 7, 
+                name: "PowerStore 1200T", 
+                category: "Storages", 
+                stock: "All-Flash / NVMe", 
+                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/storage/technical-support/powerstore-family-spec-sheet.pdf",
+                spec_sheet: {
+                    "Controladores": "Dual-Active (Active-Active)",
+                    "Drives": "NVMe Flash & SCM",
+                    "Redução": "Data Reduction 4:1 Garantida",
+                    "OS": "PowerStoreOS com AppsON"
+                }
+            },
+            { 
+                id: 8, 
+                name: "PowerVault ME5012", 
+                category: "Storages", 
+                stock: "SAN/DAS Optimized", 
+                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/storage/technical-support/powervault-me5-series-spec-sheet.pdf",
+                spec_sheet: {
+                    "Capacidade": "Até 2.1PB (Raw)",
+                    "Performance": "Até 640K IOPS",
+                    "Interface": "FC, iSCSI, SAS",
+                    "Software": "ADAPT Data Protection"
+                }
+            },
+            { 
+                id: 9, 
+                name: "PowerProtect DD6400", 
+                category: "Storages", 
+                stock: "Data Protection Appliance", 
+                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/data-protection/technical-support/powerprotect-dd-series-appliances-spec-sheet.pdf",
+                spec_sheet: {
+                    "Throughput": "Até 12.7 TB/hora",
+                    "Redução": "Média de 65x desduplicação",
+                    "Escala": "Até 172TB capacidade local",
+                    "Cloud": "DD Cloud Tier integrado"
+                }
+            },
+            { 
+                id: 10, 
+                name: "PowerScale F200", 
+                category: "Storages", 
+                stock: "Scale-out NAS All-Flash", 
+                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/storage/technical-support/powerscale-all-flash-spec-sheet.pdf",
+                spec_sheet: {
+                    "Nós": "Arquitetura Scale-out",
+                    "Drives": "NVMe Flash",
+                    "Protocolos": "NFS, SMB, HDFS, S3",
+                    "Sistema": "OneFS Operating System"
+                }
+            },
+            { 
+                id: 11, 
+                name: "Unity XT 380F", 
+                category: "Storages", 
+                stock: "Unified All-Flash", 
+                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/storage/technical-support/dell-emc-unity-xt-all-flash-spec-sheet.pdf",
+                spec_sheet: {
+                    "Arquitetura": "Unified (Block, File, VVols)",
+                    "Redução": "Inline Dedupe & Compression",
+                    "Nuvem": "Cloud Tiering Integrado",
+                    "Performance": "Dual-Processor Multi-core"
+                }
+            },
+            { 
+                id: 12, 
+                name: "ECS EX500", 
+                category: "Storages", 
+                stock: "Object Storage Appliance", 
+                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/storage/technical-support/ecs-spec-sheet.pdf",
+                spec_sheet: {
+                    "Uso": "Arquivamento, Cloud Nativa",
+                    "Protocolos": "S3, Swift, HDFS, CAS",
+                    "Escala": "Exabytes de capacidade",
+                    "Geo": "Replicação Multi-site"
+                }
+            },
+            
+            // NETWORKING
+            { 
+                id: 13, 
+                name: "PowerSwitch S5248F-ON", 
+                category: "Switches", 
+                stock: "Leaf Switch 25G", 
+                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/networking/technical-support/dell-emc-powerswitch-s5200-series-spec-sheet.pdf",
+                spec_sheet: {
+                    "Portas": "48x 25GbE + 6x 100GbE",
+                    "Throughput": "2.0 Tbps",
+                    "OS": "SmartFabric OS10 / SONiC",
+                    "Latência": "Sub-microssegundo"
+                }
+            },
+            { 
+                id: 14, 
+                name: "PowerSwitch Z9432F-ON", 
+                category: "Switches", 
+                stock: "Spine 400GbE", 
+                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/networking/technical-support/dell-emc-powerswitch-z9432f-on-spec-sheet.pdf",
+                spec_sheet: {
+                    "Portas": "32x 400GbE QSFP56-DD",
+                    "Performance": "25.6 Tbps Switching",
+                    "Buffer": "Deep Buffer para workloads densas",
+                    "Design": "Non-blocking fabric"
+                }
+            },
+            { 
+                id: 15, 
+                name: "Connectrix DS-6610B", 
+                category: "Switches", 
+                stock: "Fibre Channel SAN", 
+                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/storage/technical-support/connectrix-ds-6600-series-spec-sheet.pdf",
+                spec_sheet: {
+                    "Velocidade": "32Gb FC",
+                    "Portas": "Até 24 portas (base 8)",
+                    "Uso": "Redes de Storage Críticas",
+                    "Monitor": "Fabric Vision Integrado"
+                }
+            },
+            { 
+                id: 16, 
+                name: "PowerSwitch N3248TE-ON", 
+                category: "Switches", 
+                stock: "Campus / Edge Layer 3", 
+                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/networking/technical-support/dell-emc-powerswitch-n3200-series-spec-sheet.pdf",
+                spec_sheet: {
+                    "Portas": "48x 1GbE + 4x 10GbE Uplinks",
+                    "PoE": "Suporte a PoE+ / UPoE",
+                    "Stacking": "Até 12 unidades",
+                    "Gestão": "HiveManager / OS6"
+                }
+            },
+            { 
+                id: 17, 
+                name: "PowerSwitch S4112F-ON", 
+                category: "Switches", 
+                stock: "Half-Width 10G/100G", 
+                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/networking/technical-support/dell-emc-powerswitch-s4100-series-spec-sheet.pdf",
+                spec_sheet: {
+                    "Portas": "12x 10GbE SFP+ + 3x 100GbE",
+                    "Form Factor": "1/2 Width (2 unidades em 1U)",
+                    "Uso": "Hyper-converged, Borda",
+                    "OS": "Open Networking Ready"
+                }
+            },
+            { 
+                id: 18, 
+                name: "PowerSwitch S5232F-ON", 
+                category: "Switches", 
+                stock: "Dense 100G Fabric", 
+                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=400", 
+                spec_link: "https://www.delltechnologies.com/asset/en-us/products/networking/technical-support/dell-emc-powerswitch-s5200-series-spec-sheet.pdf",
+                spec_sheet: {
+                    "Portas": "32x 100GbE QSFP28",
+                    "Throughput": "6.4 Tbps",
+                    "Ideal para": "Spine ou Aggregation",
+                    "Suporte": "VXLAN, Multi-Chassis Link"
+                }
+            }
+        ];
+
+        function renderProducts(filter = 'Todos') {
+            const grid = document.getElementById('product-grid');
+            const countDisplay = document.getElementById('results-count');
+            
+            const catInfo = categoryData[filter];
+            document.getElementById('cat-title').innerText = catInfo.title;
+            document.getElementById('cat-text').innerText = catInfo.text;
+            
+            const listContainer = document.getElementById('cat-list-container');
+            listContainer.innerHTML = '';
+            catInfo.products.forEach(p => {
+                listContainer.innerHTML += `
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="check-circle-2" class="w-3 h-3 text-tds-teal-bright"></i>
+                        <span class="text-[10px] font-black text-slate-700 uppercase tracking-tight">${p}</span>
+                    </div>
+                `;
+            });
+
+            grid.classList.add('opacity-0');
+            setTimeout(() => {
+                grid.innerHTML = '';
+                const filtered = filter === 'Todos' ? products : products.filter(p => p.category === filter);
+                
+                filtered.forEach(p => {
+                    let specHtml = '';
+                    for (const [key, value] of Object.entries(p.spec_sheet)) {
+                        specHtml += `
+                            <div class="py-2 border-b border-gray-100 last:border-0">
+                                <span class="spec-label block">${key}</span>
+                                <span class="spec-value block">${value}</span>
+                            </div>
+                        `;
+                    }
+
+                    grid.innerHTML += `
+                        <div class="product-card bg-white border border-gray-200 rounded-2xl overflow-hidden flex flex-col group fade-in">
+                            <div class="relative h-48 bg-gray-50 flex items-center justify-center p-6 overflow-hidden">
+                                <img src="${p.img}" alt="${p.name}" class="w-full h-full object-contain mix-blend-multiply opacity-60 group-hover:opacity-100 transition-all duration-500 group-hover:scale-105">
+                                <div class="absolute top-4 left-4 bg-tds-teal-dark text-white text-[8px] font-black px-3 py-1 rounded tracking-[0.2em] uppercase shadow-sm">
+                                    ${p.stock}
+                                </div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow border-t border-gray-100">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="w-2 h-2 rounded-full bg-tds-teal-bright"></span>
+                                    <span class="text-tds-teal-bright font-black text-[9px] uppercase tracking-widest">${p.category}</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-tds-teal-dark mb-4 tracking-tight">${p.name}</h3>
+                                
+                                <div class="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-100 shadow-inner">
+                                    <div class="flex items-center gap-2 mb-3 border-b border-gray-200 pb-2">
+                                        <i data-lucide="microchip" class="w-3 h-3 text-tds-teal-bright"></i>
+                                        <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Spec Sheet Resumido</span>
+                                    </div>
+                                    <div class="space-y-0">
+                                        ${specHtml}
+                                    </div>
+                                </div>
+
+                                <a href="${p.spec_link}" target="_blank" class="btn-spec-link w-full py-2.5 rounded-lg flex items-center justify-center gap-2 mb-6 shadow-sm">
+                                    <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                                    Ver Spec Sheet Completo (PDF)
+                                </a>
+                                
+                                <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                                    <div>
+                                        <span class="block text-[8px] text-gray-400 font-black uppercase tracking-widest mb-1">Architecture Desk</span>
+                                        <span class="text-[10px] font-black text-tds-teal-dark uppercase">Portal do Parceiro</span>
+                                    </div>
+                                    <button class="w-10 h-10 bg-tds-teal-dark text-white rounded-lg flex items-center justify-center hover:bg-tds-teal-bright hover:text-tds-teal-dark transition-all shadow-md active:scale-90">
+                                        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                countDisplay.innerText = `${filtered.length} Soluções no Catálogo ${filter === 'Todos' ? 'Geral' : filter}`;
+                grid.classList.remove('opacity-0');
+                lucide.createIcons();
+            }, 300);
+        }
+
+        function filterItems(cat) {
+            renderProducts(cat);
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active-filter');
+                btn.classList.add('bg-gray-50', 'text-tds-teal-dark');
+                if (btn.innerText.toLowerCase().includes(cat.toLowerCase()) || (cat === 'Todos' && btn.innerText.includes('Catálogo'))) {
+                    btn.classList.remove('bg-gray-50', 'text-tds-teal-dark');
+                    btn.classList.add('active-filter');
+                }
+            });
+        }
+
+        function scrollToGrid(cat) {
+            const section = document.getElementById('solutions-section');
+            section.scrollIntoView({ behavior: 'smooth' });
+            filterItems(cat);
+        }
+
+        window.onload = () => renderProducts();
+    </script>
+</body>
+</html>
